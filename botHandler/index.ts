@@ -23,7 +23,7 @@ export const httpTrigger: AzureFunction = async (context: Context, data: HttpReq
 }
 
  const verifyCall = async (dataObject: any) => { 
-    if(dataObject.toke === process.env.VERIFICATION_SLACK_TOKEN) { 
+    if(dataObject.token === process.env.VERIFICATION_SLACK_TOKEN) { 
         return dataObject.challenge; 
     } else if (dataObject.token !== process.env.VERIFICATION_SLACK_TOKE) {
         return 'Invalid token'; 
