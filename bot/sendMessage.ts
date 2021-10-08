@@ -6,7 +6,7 @@ const gotPost = async (slackMessage: any, url: string) => {
     headers: {
       'Content-type': 'application/json',
       Authorization:
-        'Bearer xoxb-895410574737-2566195113559-gMoZ7CwVunIzeQMkgp3ZJeDC',
+        'Bearer <Add slack token>',
     },
     url: url,
     body: JSON.stringify(slackMessage),

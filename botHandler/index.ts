@@ -19,7 +19,7 @@ export const httpTrigger: AzureFunction = async (context: Context, data: HttpReq
 }
 
  const verifyCall = async (dataObject: any) => { 
-    if(dataObject.token === "Mu9hcnRjzzocK0a6cElHTKAt") { 
+    if(dataObject.token === "<Add slack token>") { 
         return {
             status: 200, 
             body: dataObject.challenge, 
@@ -27,7 +27,7 @@ export const httpTrigger: AzureFunction = async (context: Context, data: HttpReq
                 "Content-Type": "application/json"
             }
         } 
-    } else if (dataObject.token !== "Mu9hcnRjzzocK0a6cElHTKAt") {
+    } else if (dataObject.token !== "<Add slack token>") {
         return {
             status: 400,
             headers: { 
