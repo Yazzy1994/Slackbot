@@ -1,26 +1,37 @@
-import got from 'got'; 
+import got from 'got'
 
-const gotPost = async (slackMessage: any, url: string) => { 
-    let response = await got({ 
-        method: 'POST', 
-        headers: { 
-            'Content-type': 'application/json', 
-             Authorization: `Bearer ${process.env.BOT_SLACK_TOKEN}`
-        }, 
-        url: url, 
-        body:JSON.stringify(slackMessage),
-    }).json();
-    return response;
+const gotPost = async (slackMessage: any, url: string) => {
+  let response = await got({
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+      Authorization:
+        'Bearer xoxb-895410574737-2566195113559-gMoZ7CwVunIzeQMkgp3ZJeDC',
+    },
+    url: url,
+    body: JSON.stringify(slackMessage),
+  }).json()
+  return response
 }
 
+export const sendSlackMessage = async (payload: any, message: string) => {
 
-export const sendSlackMessage = async (payload:any, message: string) => { 
-    if(!payload.event.thread_ts && payload.event.subtype !== 'message_replied') { 
-        let params = { 
-            channel: payload.event.channel, 
-            text: message, 
-            thread_ts: payload.event.ts
-        }
-        return await gotPost(params,process.env.botChatPostMessageUrl);
-    }
+  let threadTs: any;
+
+  if (payload.event.thread_ts) {
+    threadTs = payload.event.thread_ts
+  } else {
+    threadTs = payload.event.ts
+  }
+
+
+  // if(!payload.event.thread_ts && payload.event.subtype !== 'message_replied') {
+  let params = {
+    channel: payload.event.channel,
+    text: message,
+    thread_ts: threadTs,
+  }
+
+  return await gotPost(params, 'https://slack.com/api/chat.postMessage')
+  // }
 }
