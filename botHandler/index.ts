@@ -17,7 +17,13 @@ export const httpTrigger: AzureFunction = async (context: Context, data: HttpReq
             break;
 
         }
-        return context.res
+        return {
+            status: 200,
+            body: context.res, 
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        } 
     }
 
 }
@@ -27,7 +33,6 @@ export const httpTrigger: AzureFunction = async (context: Context, data: HttpReq
         return dataObject.challenge; 
     } else if (dataObject.token !== process.env.VERIFICATION_SLACK_TOKE) {
         return 'Invalid token'; 
-
     }
 }
 
