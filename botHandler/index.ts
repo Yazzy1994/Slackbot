@@ -3,6 +3,8 @@ import {handleMessageFromUser} from "../bot/handleMessage"
 
 
 export const httpTrigger: AzureFunction = async (context: Context, data: HttpRequest) => { 
+
+    console.log("Data:", data);
     context.log('HTTP trigger function processed a request.');
 
     const dataObject = JSON.parse(JSON.stringify(data.body));
@@ -17,21 +19,25 @@ export const httpTrigger: AzureFunction = async (context: Context, data: HttpReq
             break;
 
         }
-        return {
+        let data = {
             status: 200,
             body: context.res, 
             headers: {
                 'Content-Type': 'application/json'
             }
         } 
+
+        console.log("ReturnData",data);
+
+        return data;
     }
 
 }
 
  const verifyCall = async (dataObject: any) => { 
-    if(dataObject.token === process.env.VERIFICATION_SLACK_TOKEN) { 
+    if(dataObject.token === "Mu9hcnRjzzocK0a6cElHTKAt") { 
         return dataObject.challenge; 
-    } else if (dataObject.token !== process.env.VERIFICATION_SLACK_TOKE) {
+    } else if (dataObject.token !== "Mu9hcnRjzzocK0a6cElHTKAt") {
         return 'Invalid token'; 
     }
 }
